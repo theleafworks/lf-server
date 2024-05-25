@@ -52,6 +52,10 @@ class EnquiryController {
                     auth: {
                         user: vendorCredentials.email,
                         pass: vendorCredentials.password
+                    },
+                    tls: {
+                        // Do not fail on invalid certs
+                        rejectUnauthorized: false
                     }
                 });
                 senderEmail = vendorCredentials.email;
