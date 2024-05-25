@@ -45,9 +45,9 @@ class EnquiryController {
 
                 var vendorCredentials = await EmailCredentials.findOne({vendorIdentifier:vendor.vendorIdentifier})
                 transporter = nodemailer.createTransport({
-                    host: process.env.EMAIL_HOST,
-                    port: process.env.EMAIL_PORT,
-                    secure: false, // true for 465, false for other ports
+                    host: vendorCredentials.host,
+                    port: vendorCredentials.port,
+                    secure: vendorCredentials.secure, // true for 465, false for other ports
                     auth: {
                         user: vendorCredentials.email,
                         pass: vendorCredentials.password

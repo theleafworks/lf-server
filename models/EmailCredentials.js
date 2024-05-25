@@ -14,6 +14,19 @@ const EmailCredentials = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+    },
+    host:{
+        type:String,
+        required:true,
+    },
+    port:{
+        type:Number,
+        required:true
+    },
+    secure:{
+        type:Boolean,
+        required:true,
+        default:true
     }
 });
 
