@@ -41,6 +41,7 @@ class EnquiryController {
         try {
 
             var transporter;
+            var senderEmail;
             if(vendor && vendor.usePersonalEmail){
 
                 var vendorCredentials = await EmailCredentials.findOne({vendorIdentifier:vendor.vendorIdentifier})
@@ -53,6 +54,7 @@ class EnquiryController {
                         pass: vendorCredentials.password
                     }
                 });
+                senderEmail = vendorCredentials.email;
             }else{
                 transporter = nodemailer.createTransport({
                     host: process.env.EMAIL_HOST,
@@ -63,6 +65,7 @@ class EnquiryController {
                         pass: process.env.EMAIL_PASS
                     }
                 });
+                senderEmail = process.env.EMAIL_USER
             }
              
 
@@ -79,7 +82,7 @@ class EnquiryController {
             `;
 
             var mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: senderEmail,
                 to: vendor.email,
                 subject: "New Enquiry received",
                 text: "Enquiry Recieved",
